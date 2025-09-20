@@ -10,9 +10,14 @@ import { withMiddleware } from "@/components/Middleware";
 
 function Home() {
     const [beers, setBeers] = useState<number>(0);
+    const [disabled, setDisabled] = useState<boolean>(false);
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
     const handlePress = () => {
+        setDisabled(true);
+        setTimeout(() => setDisabled(false), 500); // Re-enable after 500ms
+
+        if (disabled) return; // Prevent multiple presses
         // Trigger the animation
         Animated.sequence([
             Animated.timing(scaleAnim, {
@@ -59,13 +64,29 @@ function Home() {
             shadowRadius: 3,
             elevation: 5,
         },
+        buttonDisabled: {
+            flexDirection: 'row',
+            width: 100,
+            height: 100,
+            backgroundColor: useThemeColor({}, 'primary', 200),
+            padding: 10,
+            borderRadius: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+            shadowColor: useThemeColor({}, 'accent', 900),
+            shadowOffset: { width: 3, height: 5 },
+            shadowOpacity: 0.3,
+            shadowRadius: 3,
+            elevation: 5,
+        },
     });
 
     return (
         <SafeAreaView style={styles.container}>
             <Leaderboard />
+            <Text type="title">{beers}</Text>
             <Animated.View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={handlePress} style={styles.button}>
+                <TouchableOpacity onPress={handlePress} style={!disabled ? styles.button : styles.buttonDisabled} disabled={disabled}>
                     <MaterialIcons name="plus-one" size={24} color={useThemeColor({}, 'text')} />
                 </TouchableOpacity>
             </Animated.View>

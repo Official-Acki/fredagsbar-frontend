@@ -20,7 +20,7 @@ export function withMiddleware(WrappedComponent: React.ComponentType) {
                     const tokenData = await getData('authToken');
                     if (tokenData) {
                         const token: Session = JSON.parse(tokenData);
-                        console.log(token);
+                        // console.log(token);
                         // Optionally, validate the token with the server
                         const formBody = new URLSearchParams();
                         formBody.append("guid", token.session_token);

@@ -11,12 +11,6 @@ import { SERVER_URL } from "@/constants/Server";
 import { storeData } from "@/handlers/StorageHandler";
 
 export default function Login() {
-    const navigation = useNavigation();
-
-    useEffect(() => {
-        navigation.setOptions({ title: "Login" });
-    }, [navigation]);
-
     const router = useRouter();
 
     const [username, setUsername] = React.useState('');

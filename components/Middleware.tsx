@@ -41,11 +41,10 @@ export function withMiddleware(WrappedComponent: React.ComponentType) {
                     } else {
                         router.replace("/login"); // Redirect to login if no token
                     }
+                    setIsLoading(false);
                 } catch (error) {
                     console.error("Error checking login status:", error);
                     router.replace("/login"); // Redirect to login on error
-                } finally {
-                    setIsLoading(false);
                 }
             };
 

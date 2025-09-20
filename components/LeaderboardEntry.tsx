@@ -3,13 +3,14 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "./Text";
 
 interface Props {
+    placement: number;
     entry: LeaderboardEntryType;
 }
 
-export default function LeaderboardEntry( { entry }: Props) {
+export default function LeaderboardEntry( { placement, entry }: Props) {
     return (
         <View style={styles.container}>
-            <Text>{entry.person.id}. {entry.person.username}</Text>
+            <Text>{placement}. {entry.person.username}</Text>
             <Text>{entry.drank} beers</Text>
         </View>
     );

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Button, TouchableOpacity, Animated } from "react-native";
 import { Text } from "@/components/Text";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,11 +7,27 @@ import { Colors } from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Leaderboard from "@/components/Leaderboard";
 import { withMiddleware } from "@/components/Middleware";
+import { PostRequest } from "@/handlers/AuthorizedRequests";
 
 function Home() {
     const [beers, setBeers] = useState<number>(0);
     const [disabled, setDisabled] = useState<boolean>(false);
     const scaleAnim = useRef(new Animated.Value(1)).current;
+
+    const fetchBeerCount = async () => {
+        try {
+            const response = await PostRequest('/Beers/drank/total/today/self'); // Replace with your API endpoint
+            setBeers(Number.parseInt(await response.text()));
+        } catch (error) {
+            console.error("Failed to fetch beer count:", error);
+        }
+    };
+
+    // Run fetchBeerCount once when the component mounts
+    useEffect(() => {
+        fetchBeerCount();
+    }, []);
+
 
     const handlePress = () => {
         setDisabled(true);
@@ -34,6 +50,7 @@ function Home() {
 
         // Increment the beer count
         setBeers(beers + 1);
+        PostRequest('/Beers/drank/');
     };
 
     const styles = StyleSheet.create({
@@ -86,7 +103,7 @@ function Home() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Leaderboard style={styles.leaderboard}/>
+            <Leaderboard style={styles.leaderboard} />
             <Text type="title">{beers}</Text>
             <Animated.View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={handlePress} style={!disabled ? styles.button : styles.buttonDisabled} disabled={disabled}>

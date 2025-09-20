@@ -6,8 +6,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Leaderboard from "@/components/Leaderboard";
+import { withMiddleware } from "@/components/Middleware";
 
-export default function Home() {
+function Home() {
     const [beers, setBeers] = useState<number>(0);
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -71,3 +72,5 @@ export default function Home() {
         </SafeAreaView>
     );
 }
+
+export default withMiddleware(Home);

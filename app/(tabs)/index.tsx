@@ -37,6 +37,9 @@ function Home() {
     };
 
     const styles = StyleSheet.create({
+        leaderboard: {
+            marginBottom: 20,
+        },
         container: {
             width: '100%',
             flex: 1,
@@ -83,7 +86,7 @@ function Home() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Leaderboard />
+            <Leaderboard style={styles.leaderboard}/>
             <Text type="title">{beers}</Text>
             <Animated.View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={handlePress} style={!disabled ? styles.button : styles.buttonDisabled} disabled={disabled}>

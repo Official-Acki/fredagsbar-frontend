@@ -28,7 +28,7 @@ export default function Signup() {
             formBody.append('username', username);
             formBody.append('password', password);
             formBody.append('invite_code', inviteCode);
-            formBody.append('discord_id', '1');
+            // formBody.append('discord_id', '1');
             const response = await fetch(SERVER_URL + '/auth/register', {
                 method: 'POST',
                 headers: {

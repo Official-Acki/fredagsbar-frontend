@@ -2,9 +2,12 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from 'react-native';
 
 export function useThemeColor(
-  props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark,
-  colorBrightness: keyof typeof Colors.light.accent & keyof typeof Colors.dark.accent = 950
+  props: {
+    light?: string;
+    dark?: string
+    colorName: keyof typeof Colors.light & keyof typeof Colors.dark,
+    colorBrightness?: keyof typeof Colors.light.accent & keyof typeof Colors.dark.accent
+  },
 ) {
   const theme = useColorScheme() ?? 'light';
   const colorFromProps = props[theme];
@@ -12,6 +15,7 @@ export function useThemeColor(
   if (colorFromProps) {
     return colorFromProps;
   } else {
-    return Colors[theme][colorName][colorBrightness];
+    if (!props.colorBrightness) props.colorBrightness = 900;
+    return Colors[theme][props.colorName][props.colorBrightness];
   }
 }

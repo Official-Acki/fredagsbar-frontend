@@ -73,12 +73,12 @@ function Home() {
             flexDirection: 'row',
             width: 100,
             height: 100,
-            backgroundColor: useThemeColor({}, 'primary', 500),
+            backgroundColor: useThemeColor({ colorName: 'primary', colorBrightness: 500 }),
             padding: 10,
             borderRadius: 20,
             justifyContent: 'center',
             alignItems: 'center',
-            shadowColor: useThemeColor({}, 'accent', 900),
+            shadowColor: useThemeColor({ colorName: 'accent', colorBrightness: 900 }),
             shadowOffset: { width: 3, height: 5 },
             shadowOpacity: 0.3,
             shadowRadius: 3,
@@ -88,12 +88,12 @@ function Home() {
             flexDirection: 'row',
             width: 100,
             height: 100,
-            backgroundColor: useThemeColor({}, 'primary', 200),
+            backgroundColor: useThemeColor({ colorName: 'primary', colorBrightness: 200 }),
             padding: 10,
             borderRadius: 20,
             justifyContent: 'center',
             alignItems: 'center',
-            shadowColor: useThemeColor({}, 'accent', 900),
+            shadowColor: useThemeColor({ colorName: 'accent', colorBrightness: 900 }),
             shadowOffset: { width: 3, height: 5 },
             shadowOpacity: 0.3,
             shadowRadius: 3,
@@ -107,7 +107,7 @@ function Home() {
             <Text type="title">{beers}</Text>
             <Animated.View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={handlePress} style={!disabled ? styles.button : styles.buttonDisabled} disabled={disabled}>
-                    <MaterialIcons name="plus-one" size={24} color={useThemeColor({}, 'text')} />
+                    <MaterialIcons name="plus-one" size={24} color={useThemeColor({ colorName: 'text' })} />
                 </TouchableOpacity>
             </Animated.View>
         </SafeAreaView>

@@ -6,8 +6,8 @@ interface TextInputProps extends RNTextInputProps {
 }
 
 export function TextInput({ style, ...restProps }: TextInputProps) {
-    const color = useThemeColor({}, 'text');
-    const backgroundColor = useThemeColor({}, 'primary', 100);
+    const color = useThemeColor({ colorName: 'text' });
+    const backgroundColor = useThemeColor({ colorName: 'primary', colorBrightness: 100 });
 
     const combinedStyle = {
         color: color,

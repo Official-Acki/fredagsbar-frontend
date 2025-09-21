@@ -1,53 +1,80 @@
 import { useState, useEffect } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { Text } from "./Text";
-import { PostRequest } from "@/handlers/AuthorizedRequests";
+import { getAuthToken, PostRequest } from "@/handlers/AuthorizedRequests";
 import LeaderboardEntry from "./LeaderboardEntry";
 import { LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
+import * as signalR from "@microsoft/signalr"; // <-- Add this import
+import { getData } from "@/handlers/StorageHandler";
 
 interface LeaderboardProps {
     style?: object;
 }
 
+const SERVER_HOST = "http://localhost:5293"; // <-- Replace with your actual host
+
 export default function Leaderboard({ style }: LeaderboardProps) {
-    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntryType[] | null>(null); // State to store fetched data
-    const [displayedData, setDisplayedData] = useState<LeaderboardEntryType[] | null>(null); // State to store data displayed in the UI
-    const [loading, setLoading] = useState(true); // State to manage loading state
+    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntryType[] | null>(null);
+    const [displayedData, setDisplayedData] = useState<LeaderboardEntryType[] | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let connection: signalR.HubConnection | null = null;
+
         const fetchLeaderboard = async () => {
             try {
                 setLoading(true);
-                const response = await PostRequest('/leaderboard/get', new URLSearchParams());
+                const response = await PostRequest('/leaderboard/get/today', new URLSearchParams());
                 const data = await response.json();
                 try {
                     const parsedData = JSON.parse(data);
-                    setLeaderboardData(parsedData); // Update the fetched data
-                    setDisplayedData(parsedData); // Update the displayed data only after fetching is complete
-                } catch (error) {
-                    
-                }
-
+                    setLeaderboardData(parsedData);
+                    setDisplayedData(parsedData);
+                } catch (error) {}
             } catch (err) {
                 console.error("Failed to fetch leaderboard:", err);
             } finally {
-                setLoading(false); // Set loading to false after fetch
+                setLoading(false);
             }
         };
 
-        // Fetch leaderboard initially
+        const setupSignalRConnection = async () => {
+            const session_token = await getAuthToken();
+            // SignalR setup
+            connection = new signalR.HubConnectionBuilder()
+                .withUrl(`${SERVER_HOST}/leaderboardHub?session_token=${session_token}`, { withCredentials: true })
+                .withAutomaticReconnect()
+                .build();
+
+            connection.on("ReceiveLeaderboard", (updatedData: LeaderboardEntryType[]) => {
+                setLeaderboardData(updatedData);
+                setDisplayedData(updatedData);
+            });
+
+            connection.start()
+                .then(() => {
+                    console.log("SignalR Connected");
+                })
+                .catch(err => {
+                    console.error("SignalR Connection Error:", err);
+                });
+        };
+
+        setupSignalRConnection();
+
+        // Initial fetch
         fetchLeaderboard();
 
-        // Set up interval to fetch leaderboard every 5 seconds
-        const intervalId = setInterval(fetchLeaderboard, 5000);
-
-        // Cleanup interval on component unmount
-        return () => clearInterval(intervalId);
-    }, []); // Empty dependency array ensures this runs only once when the component mounts
+        // Cleanup
+        return () => {
+            if (connection) {
+                connection.stop();
+            }
+        };
+    }, []);
 
     return (
         <>
-            {/* Optionally show a loading indicator */}
             {loading && !displayedData && <Text>Loading...</Text>}
             {displayedData && (
                 <FlatList

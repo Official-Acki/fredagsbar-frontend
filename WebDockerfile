@@ -1,0 +1,28 @@
+FROM node:alpine AS builder
+
+WORKDIR /app
+
+COPY app.json .
+COPY package.json .
+COPY tsconfig.json .
+
+RUN npm install
+
+COPY app/ app/
+COPY assets/ assets/
+COPY components/ components/
+COPY constants/ constants/
+COPY handlers/ handlers/
+COPY hooks/ hooks/
+
+RUN npx expo export -p web
+
+FROM node:alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/dist/ dist/
+COPY --from=builder /app/package.json .
+
+
+CMD [ "npx", "--yes", "expo", "serve" ]

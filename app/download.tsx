@@ -14,7 +14,7 @@ export default function Download() {
         );
     }
 
-    const androidFileUrl = 'https://pawzd.net/download/?download=app-release.apk'; // Path to the file in the public directory
+    const androidFileUrl = 'https://pawzd.net/download/?download=build-1758568263567.apk'; // Path to the file in the public directory
 
     const styles = StyleSheet.create({
         container: {

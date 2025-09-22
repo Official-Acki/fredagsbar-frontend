@@ -6,12 +6,11 @@ import LeaderboardEntry from "./LeaderboardEntry";
 import { LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
 import * as signalR from "@microsoft/signalr"; // <-- Add this import
 import { getData } from "@/handlers/StorageHandler";
+import { WEBSOCKET_URL } from "@/constants/Server";
 
 interface LeaderboardProps {
     style?: object;
 }
-
-const SERVER_HOST = "http://localhost:5293"; // <-- Replace with your actual host
 
 export default function Leaderboard({ style }: LeaderboardProps) {
     const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntryType[] | null>(null);
@@ -42,7 +41,7 @@ export default function Leaderboard({ style }: LeaderboardProps) {
             const session_token = await getAuthToken();
             // SignalR setup
             connection = new signalR.HubConnectionBuilder()
-                .withUrl(`${SERVER_HOST}/leaderboardHub?session_token=${session_token}`, { withCredentials: true })
+                .withUrl(`${WEBSOCKET_URL}/leaderboardHub?session_token=${session_token}`, { withCredentials: true })
                 .withAutomaticReconnect()
                 .build();
 

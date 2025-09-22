@@ -30,6 +30,7 @@ export function Setting<T>({ type, default: defaultValue, onChange, title, descr
         container: {
             flex: 1,
             flexDirection: 'row',
+            minHeight: 80,
             margin: 10,
             padding: 5,
             borderBottomWidth: 1,
@@ -60,12 +61,12 @@ export function Setting<T>({ type, default: defaultValue, onChange, title, descr
     return (
         <View style={styles.container}>
             <View style={{ flex: 3 }}>
-                <Text>{title}</Text>
+                <Text type="subtitle">{title}</Text>
                 <Text>{description}</Text>
             </View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 {(type as any) === Number && (
-                    <NumberInput style={[styles.button, styles.buttonText]} />
+                    <NumberInput placeholderTextColor={styles.buttonText.color} style={[styles.button, styles.buttonText]} />
                 )}
                 {(type as any) === Boolean && (
                     <Checkbox style={styles.checkbox} size={32} onValueChange={setChecked} text={isChecked ? "On" : "Off"} />

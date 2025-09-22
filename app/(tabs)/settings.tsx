@@ -11,14 +11,15 @@ function Settings() {
 
     return (
         <SafeAreaView>
-            <Text>Settings Screen</Text>
-            <Setting title="Test" type={Number} default={0} />
-            <Setting title="Test" type={Boolean} default={false} />
-            <Setting title="Test" type={Number} default={0} />
+            <Setting title="Test" type={Number} default={0} onChange={(value) => console.log("Number changed:", value)} />
+            <Setting title="Test" type={Boolean} default={false} onChange={(value) => console.log("Boolean changed:", value)} />
+            <Setting title="Test" type={Number} default={0} onChange={(value) => console.log("Number changed:", value)} />
+            <Setting title="Test" type={"ButtonAction"} default={undefined} onChange={() => alert("Pressed")} />
             <Setting
                 title="Log Out"
                 type={"ButtonAction"}
                 default={undefined}
+                description="Log out of your account"
                 onChange={async () => {
                     const formBody = new URLSearchParams();
                     const person = await WhoAmI();

@@ -22,7 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.Fredagsbar"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -31,6 +32,13 @@
     "plugins": [
       "expo-router",
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c17d6634-630b-4eb2-ae90-fbc11216781f"
+      }
+    },
+    "owner": "pawzd"
   }
 }

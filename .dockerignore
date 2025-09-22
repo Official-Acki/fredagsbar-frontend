@@ -1,0 +1,5 @@
+WebDockerfile
+android/
+.expo/
+dist/
+node_modules/

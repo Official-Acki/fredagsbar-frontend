@@ -42,13 +42,11 @@ RUN npx expo export -p web
 
 # # CMD ["bash"]
 
-FROM node:alpine
+FROM nginx:stable-perl
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY --from=builder /app/dist/ dist/
-COPY --from=builder /app/package.json .
+COPY --from=builder /app/dist/ /usr/share/nginx/html
 
 # COPY --from=platform-builder /app/android/app/build/outputs/apk/release/app-release.apk /app/dist/
-
-CMD [ "npx", "--yes", "expo", "serve" ]
+EXPOSE 80

@@ -11,7 +11,7 @@ export default function LeaderboardEntry( { placement, entry }: Props) {
     return (
         <View style={styles.container}>
             <Text>{placement}. {entry.person.username}</Text>
-            <Text>{entry.drank} beers</Text>
+            <Text>{entry.beers_drank} beers</Text>
         </View>
     );
 }

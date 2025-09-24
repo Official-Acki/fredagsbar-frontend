@@ -14,5 +14,9 @@ export interface Person {
 }
 export interface LeaderboardEntry {
     person: Person;
-    drank: number;
+    beers_drank: number;
+}
+
+export interface Leaderboard {
+    entries: LeaderboardEntry[];
 }

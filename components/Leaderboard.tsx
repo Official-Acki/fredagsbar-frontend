@@ -3,7 +3,7 @@ import { View, FlatList, StyleSheet } from "react-native";
 import { Text } from "./Text";
 import { getAuthToken, PostRequest } from "@/handlers/AuthorizedRequests";
 import LeaderboardEntry from "./LeaderboardEntry";
-import { LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
+import { Leaderboard as LeaderboardType, LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
 import * as signalR from "@microsoft/signalr"; // <-- Add this import
 import { getData } from "@/handlers/StorageHandler";
 import { WEBSOCKET_URL } from "@/constants/Server";
@@ -13,8 +13,8 @@ interface LeaderboardProps {
 }
 
 export default function Leaderboard({ style }: LeaderboardProps) {
-    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntryType[] | null>(null);
-    const [displayedData, setDisplayedData] = useState<LeaderboardEntryType[] | null>(null);
+    const [leaderboardData, setLeaderboardData] = useState<LeaderboardType | null>(null);
+    const [displayedData, setDisplayedData] = useState<LeaderboardType | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function Leaderboard({ style }: LeaderboardProps) {
                 .withAutomaticReconnect()
                 .build();
 
-            connection.on("ReceiveLeaderboard", (updatedData: LeaderboardEntryType[]) => {
+            connection.on("ReceiveLeaderboard", (updatedData: LeaderboardType) => {
                 setLeaderboardData(updatedData);
                 setDisplayedData(updatedData);
             });
@@ -78,7 +78,7 @@ export default function Leaderboard({ style }: LeaderboardProps) {
             {displayedData && (
                 <FlatList
                     style={[styles.list, style]}
-                    data={displayedData}
+                    data={displayedData.entries}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => <LeaderboardEntry placement={index + 1} entry={item} />}
                 />

@@ -1,2 +1,4 @@
-export const SERVER_URL = "https://fredagsbar.pawzd.net/api/api";
-export const WEBSOCKET_URL = "https://fredagsbar.pawzd.net/api";
+const SERVER = process.env.EXPO_PUBLIC_URL;
+
+export const SERVER_URL = `${SERVER}/api`;
+export const WEBSOCKET_URL = `${SERVER}`;

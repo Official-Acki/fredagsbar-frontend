@@ -14,10 +14,10 @@ export default function RootLayout() {
 
                 <Stack initialRouteName="(tabs)">
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                    <Stack.Screen name="(tabs)/others" options={{ headerShown: false }} />
                     <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                     <Stack.Screen name="download" options={{ headerShown: false }} />
                     {/* <Stack.Screen name="+not-found" /> */}
+                    {/* Stack for (tabs)/others */}
                 </Stack>
                 <Toast />
                 <StatusBar style="auto" />

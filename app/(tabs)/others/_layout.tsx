@@ -6,10 +6,6 @@ export default function Layout() {
     <Stack
       initialRouteName='index'
       screenOptions={{
-        headerStyle: {
-          backgroundColor: useThemeColor({ colorName: 'primary', colorBrightness: 500 })
-        },
-        headerTintColor: useThemeColor({ colorName: 'text' }),
         headerTitleStyle: {
           fontWeight: 'bold',
         },

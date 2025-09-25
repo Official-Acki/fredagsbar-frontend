@@ -4,12 +4,13 @@ import { WhoAmI } from "@/handlers/AuthorizedRequests";
 import { withMiddleware } from "@/components/Middleware";
 import { useRouter } from "expo-router";
 import axiosInstance from "@/handlers/AxiosConfig";
+import { ScrollView } from "react-native";
 
 function Settings() {
     const router = useRouter();
 
     return (
-        <SafeAreaView>
+        <ScrollView>
             <Setting title="Test" type={Number} default={0} onChange={(value) => console.log("Number changed:", value)} />
             <Setting title="Test" type={Boolean} default={false} onChange={(value) => console.log("Boolean changed:", value)} />
             <Setting title="Test" type={Number} default={0} onChange={(value) => console.log("Number changed:", value)} />
@@ -28,7 +29,7 @@ function Settings() {
                     await axiosInstance.post("/auth/logout", formBody);
                     router.navigate("/login");
                 }} />
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 

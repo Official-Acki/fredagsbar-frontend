@@ -7,6 +7,7 @@ import { Leaderboard as LeaderboardType, LeaderboardEntry as LeaderboardEntryTyp
 import * as signalR from "@microsoft/signalr"; // <-- Add this import
 import { getData } from "@/handlers/StorageHandler";
 import { WEBSOCKET_URL } from "@/constants/Server";
+import Toast from "react-native-toast-message";
 
 interface LeaderboardProps {
     style?: object;
@@ -31,6 +32,10 @@ export default function Leaderboard({ style }: LeaderboardProps) {
                     setDisplayedData(parsedData);
                 } catch (error) {}
             } catch (err) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Failed to fetch leaderboard',
+                });
                 console.error("Failed to fetch leaderboard:", err);
             } finally {
                 setLoading(false);

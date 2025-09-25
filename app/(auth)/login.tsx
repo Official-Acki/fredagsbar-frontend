@@ -33,9 +33,7 @@ export default function Login() {
             if (response.ok) {
                 // Save the whole response as the token
                 storeData('authToken', data);
-                console.log('Login successful:', data);
                 Toast.show({
-                    type: 'success',
                     text1: 'Login successful!',
                 });
                 router.push('/');

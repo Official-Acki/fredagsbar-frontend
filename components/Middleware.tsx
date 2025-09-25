@@ -7,6 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { getData } from "@/handlers/StorageHandler";
 import { Session } from "@/constants/Interfaces";
+import Toast from "react-native-toast-message";
 
 export function withMiddleware(WrappedComponent: React.ComponentType) {
     return function MiddlewareComponent(props: any) {
@@ -43,6 +44,10 @@ export function withMiddleware(WrappedComponent: React.ComponentType) {
                     }
                     setIsLoading(false);
                 } catch (error) {
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error checking login status',
+                    });
                     console.error("Error checking login status:", error);
                     router.replace("/login"); // Redirect to login on error
                 }

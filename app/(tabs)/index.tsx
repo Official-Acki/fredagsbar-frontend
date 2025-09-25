@@ -20,6 +20,10 @@ function Home() {
             const response = await PostRequest('/Beers/drank/total/today/self'); // Replace with your API endpoint
             setBeers(Number.parseInt(await response.text()));
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                text1: 'Failed to fetch beer count',
+            });
             console.error("Failed to fetch beer count:", error);
         }
     };

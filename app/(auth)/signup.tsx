@@ -9,6 +9,7 @@ import * as SecureStore from 'expo-secure-store';
 import { fetch } from "expo/fetch";
 import { SERVER_URL } from "@/constants/Server";
 import { storeData } from "@/handlers/StorageHandler";
+import Toast from "react-native-toast-message";
 
 export default function Signup() {
     const router = useRouter();
@@ -40,7 +41,9 @@ export default function Signup() {
             if (response.ok) {
                 // Save the whole response as the token
                 storeData('authToken', data);
-                console.log('Sign Up successful:', data);
+                Toast.show({
+                    text1: 'Sign Up successful!',
+                });
                 router.push('/');
             } else {
                 alert('Sign Up failed: ' + data.message);

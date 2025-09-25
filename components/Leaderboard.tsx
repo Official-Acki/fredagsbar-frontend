@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { Text } from "./Text";
 import { getAuthToken, PostRequest } from "@/handlers/AuthorizedRequests";
 import LeaderboardEntry from "./LeaderboardEntry";
 import { Leaderboard as LeaderboardType, LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
-import * as signalR from "@microsoft/signalr"; // <-- Add this import
-import { getData } from "@/handlers/StorageHandler";
+import * as signalR from "@microsoft/signalr";
 import { WEBSOCKET_URL } from "@/constants/Server";
 import Toast from "react-native-toast-message";
 

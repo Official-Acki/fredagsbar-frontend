@@ -1,9 +1,7 @@
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Text } from "../Text";
-import { Styling } from "@/constants/Styling";
 import React from "react";
-import { TextInput } from "../TextInput";
 import { NumberInput } from "../NumberInput";
 import Checkbox from "../Checkbox";
 

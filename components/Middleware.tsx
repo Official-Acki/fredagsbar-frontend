@@ -3,7 +3,6 @@ import { View, ActivityIndicator } from "react-native";
 
 import { SERVER_URL } from "@/constants/Server";
 import { fetch } from "expo/fetch";
-import * as SecureStore from 'expo-secure-store';
 import { useRouter } from "expo-router";
 import { getData } from "@/handlers/StorageHandler";
 import { Session } from "@/constants/Interfaces";
@@ -56,7 +55,7 @@ export function withMiddleware(WrappedComponent: React.ComponentType) {
             checkLoginStatus();
         }, [router]);
 
-        if (isLoading) {
+        if (isLoading || !isLoggedIn) {
             return (
                 <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                     <ActivityIndicator size="large" />

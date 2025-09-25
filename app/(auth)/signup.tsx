@@ -1,11 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "@/components/Text";
 import { TextInput } from "@/components/TextInput";
-import { useNavigation, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useRouter } from "expo-router";
 import { Button, StyleSheet } from "react-native";
 import React from "react";
-import * as SecureStore from 'expo-secure-store';
 import { fetch } from "expo/fetch";
 import { SERVER_URL } from "@/constants/Server";
 import { storeData } from "@/handlers/StorageHandler";

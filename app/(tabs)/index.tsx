@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { View, StyleSheet, Button, TouchableOpacity, Animated } from "react-native";
+import { StyleSheet, TouchableOpacity, Animated } from "react-native";
 import { Text } from "@/components/Text";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Leaderboard from "@/components/Leaderboard";
 import { withMiddleware } from "@/components/Middleware";

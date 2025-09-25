@@ -1,6 +1,5 @@
 import { Colors } from "@/constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
-import { PlatformPressable } from "@react-navigation/elements";
 import { Tabs } from "expo-router";
 import React from "react";
 import { useColorScheme, Platform } from "react-native";

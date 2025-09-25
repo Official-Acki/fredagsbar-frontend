@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { Text } from "./Text";
-import { getAuthToken, PostRequest } from "@/handlers/AuthorizedRequests";
+import axiosInstance from "@/handlers/AxiosConfig";
+import { getAuthToken } from "@/handlers/AuthorizedRequests";
 import LeaderboardEntry from "./LeaderboardEntry";
 import { Leaderboard as LeaderboardType, LeaderboardEntry as LeaderboardEntryType } from "@/constants/Interfaces";
 import * as signalR from "@microsoft/signalr";
@@ -23,10 +24,10 @@ export default function Leaderboard({ style }: LeaderboardProps) {
         const fetchLeaderboard = async () => {
             try {
                 setLoading(true);
-                const response = await PostRequest('/leaderboard/get/today', new URLSearchParams());
-                const data = await response.json();
+                const response = await axiosInstance.post('/leaderboard/get/today', new URLSearchParams());
                 try {
-                    const parsedData = JSON.parse(data);
+                    console.log(response.data);
+                    const parsedData = JSON.parse(response.data);
                     setLeaderboardData(parsedData);
                     setDisplayedData(parsedData);
                 } catch (error) {}

@@ -1,6 +1,7 @@
 import { SERVER_URL } from "@/constants/Server";
 import { getData } from "./StorageHandler";
 import { Person } from "@/constants/Interfaces";
+import axiosInstance from "./AxiosConfig";
 
 export async function getAuthToken() {
     const authTokenData = await getData('authToken');
@@ -8,25 +9,25 @@ export async function getAuthToken() {
     return authToken;
 }
 
-export async function PostRequest(path: string, body?: URLSearchParams) {
-    const authToken = await getAuthToken();
-    if (body === undefined) body = new URLSearchParams();
-    body.append('guid', authToken || '');
-    return fetch(`${SERVER_URL}${path}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": 'application/x-www-form-urlencoded',
-        },
-        body: body.toString(),
-    });
-}
+// export async function PostRequest(path: string, body?: URLSearchParams) {
+//     const authToken = await getAuthToken();
+//     if (body === undefined) body = new URLSearchParams();
+//     body.append('guid', authToken || '');
+//     return fetch(`${SERVER_URL}${path}`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": 'application/x-www-form-urlencoded',
+//         },
+//         body: body.toString(),
+//     });
+// }
 
 // Whoami function
 export async function WhoAmI() {
-    const response = await PostRequest('/auth/whoami');
-    if (!response.ok) throw new Error('Failed to fetch user data');
+    const response = await axiosInstance.post('/auth/whoami');
+    if (response.status != 200) throw new Error('Failed to fetch user data');
     try {
-        const person: Person = JSON.parse(await response.json());
+        const person: Person = JSON.parse(response.data);
         return person;
     } catch (error) {
         console.error('Failed to parse user data', error);

@@ -6,7 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import Leaderboard from "@/components/Leaderboard";
 import { withMiddleware } from "@/components/Middleware";
-import { PostRequest } from "@/handlers/AuthorizedRequests";
+import axiosInstance from "@/handlers/AxiosConfig";
 import Toast from "react-native-toast-message";
 
 function Home() {
@@ -16,8 +16,9 @@ function Home() {
 
     const fetchBeerCount = async () => {
         try {
-            const response = await PostRequest('/Beers/drank/total/today/self'); // Replace with your API endpoint
-            setBeers(Number.parseInt(await response.text()));
+            const response = await axiosInstance.post('/Beers/drank/total/today/self');
+            console.log(response.data);
+            setBeers(Number.parseInt(response.data));
         } catch (error) {
             Toast.show({
                 type: 'error',
@@ -54,7 +55,7 @@ function Home() {
 
         // Increment the beer count
         setBeers(beers + 1);
-        PostRequest('/Beers/drank/');
+        axiosInstance.post('/Beers/drank/');
         Toast.show({
             type: 'success',
             text1: 'Cheers! 🍻',

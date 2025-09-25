@@ -1,8 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Setting } from "@/components/settings/Setting";
-import { PostRequest, WhoAmI } from "@/handlers/AuthorizedRequests";
+import { WhoAmI } from "@/handlers/AuthorizedRequests";
 import { withMiddleware } from "@/components/Middleware";
 import { useRouter } from "expo-router";
+import axiosInstance from "@/handlers/AxiosConfig";
 
 function Settings() {
     const router = useRouter();
@@ -24,7 +25,7 @@ function Settings() {
                     if (!person) return;
                     console.log(person);
                     formBody.set("person_id", person.id.toString());
-                    await PostRequest("/auth/logout", formBody);
+                    await axiosInstance.post("/auth/logout", formBody);
                     router.navigate("/login");
                 }} />
         </SafeAreaView>

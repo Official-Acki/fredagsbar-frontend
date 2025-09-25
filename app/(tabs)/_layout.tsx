@@ -6,9 +6,7 @@ import React from "react";
 import { Platform, useColorScheme } from "react-native";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  console.log('Platform.OS:', Platform.OS);
-    console.log(Platform.OS);
+    const colorScheme = useColorScheme();
   
     return (
       <Tabs
@@ -38,6 +36,14 @@ export default function TabLayout() {
                 href: Platform.OS == 'web' ? '/download' : null,
                 headerShown: true,
                 tabBarIcon: ({ color }) => <MaterialIcons color={color} size={28} name="download" />
+            }}
+        />
+        <Tabs.Screen
+            name="others"
+            options={{
+                title: 'Others',
+                headerShown: false,
+                tabBarIcon: ({ color }) => <MaterialIcons color={color} size={28} name="more-horiz" />
             }}
         />
       </Tabs>

@@ -8,6 +8,7 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import Leaderboard from "@/components/Leaderboard";
 import { withMiddleware } from "@/components/Middleware";
 import { PostRequest } from "@/handlers/AuthorizedRequests";
+import Toast from "react-native-toast-message";
 
 function Home() {
     const [beers, setBeers] = useState<number>(0);
@@ -51,6 +52,12 @@ function Home() {
         // Increment the beer count
         setBeers(beers + 1);
         PostRequest('/Beers/drank/');
+        Toast.show({
+            type: 'success',
+            text1: 'Cheers! 🍻',
+            autoHide: true,
+            visibilityTime: 800,
+        })
     };
 
     const styles = StyleSheet.create({

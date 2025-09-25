@@ -9,6 +9,7 @@ import * as SecureStore from 'expo-secure-store';
 import { fetch } from "expo/fetch";
 import { SERVER_URL } from "@/constants/Server";
 import { storeData } from "@/handlers/StorageHandler";
+import Toast from "react-native-toast-message";
 
 export default function Login() {
     const router = useRouter();
@@ -33,6 +34,10 @@ export default function Login() {
                 // Save the whole response as the token
                 storeData('authToken', data);
                 console.log('Login successful:', data);
+                Toast.show({
+                    type: 'success',
+                    text1: 'Login successful!',
+                });
                 router.push('/');
             } else {
                 alert('Login failed: ' + data.message);

@@ -8,11 +8,15 @@ import Leaderboard from "@/components/Leaderboard";
 import { withMiddleware } from "@/components/Middleware";
 import axiosInstance from "@/handlers/AxiosConfig";
 import Toast from "react-native-toast-message";
+import useEvent from "@/hooks/useEvent";
+import { EventTitle } from "@/components/event/EventTitle";
 
 function Home() {
     const [beers, setBeers] = useState<number>(0);
     const [disabled, setDisabled] = useState<boolean>(false);
     const scaleAnim = useRef(new Animated.Value(1)).current;
+
+    const events = useEvent();
 
     const fetchBeerCount = async () => {
         try {
@@ -114,6 +118,7 @@ function Home() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <EventTitle event={events.events ? events.events[0] : null} />
             <Leaderboard style={styles.leaderboard} />
             <Text type="title">{beers}</Text>
             <Animated.View style={styles.buttonContainer}>

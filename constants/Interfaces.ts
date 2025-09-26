@@ -20,3 +20,14 @@ export interface LeaderboardEntry {
 export interface Leaderboard {
     entries: LeaderboardEntry[];
 }
+
+export interface Event {
+    id: number;
+    name: string;
+    description: string;
+    event_times: Array<{
+        start_time: string;
+        end_time: string;
+        repeat_interval: string | null;
+    }>;
+}
